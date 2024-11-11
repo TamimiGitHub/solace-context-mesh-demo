@@ -6,6 +6,7 @@ This demo uses the [Solace AI Connector](https://github.com/SolaceLabs/solace-ai
 
 - Python 3
 - Solace AI Connector
+- Node 18+
 
 ## To run
 
@@ -39,7 +40,7 @@ pip install -r requirements.txt
 python enricher.py -t <topic_subscription>
 ```
 
-### Solace AI Connector
+### 2. Solace AI Connector
 
 - Populate the envVars.env with the right env varibales
 - Source the environment
@@ -69,9 +70,13 @@ curl https://raw.githubusercontent.com/SolaceLabs/solace-ai-connector/main/examp
 solace-ai-connector openai_chroma_rag.yaml
 ```
 
-### The frontend application
+### 3. The frontend application
 
 ```
 npm install
 npm start
 ```
+
+## Architecure
+
+![Architecture Diagram](src/images/realtimeRAG.png)
