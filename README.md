@@ -11,7 +11,7 @@ This demo uses the [Solace AI Connector](https://github.com/SolaceLabs/solace-ai
 
 Open every section in a separate terminal window
 
-### The Enricher
+### 1. The Enricher
 
 - Run the enricher
 - Navigate to the `enricher` directory
