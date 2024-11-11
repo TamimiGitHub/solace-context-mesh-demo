@@ -28,9 +28,12 @@ python3 -m venv env
 source env/bin/activate
 ```
 
+Note: If you are using WSL or Ubunto you might need to install `python3.8-vnenv`
+
 - Install dependencies
 
 ```
+pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
@@ -54,6 +57,7 @@ source envVars.env
 ```
 python3 -m venv env
 source env/bin/activate
+pip install --upgrade pip
 pip install -r requirements.txt
 pip install solace-ai-connector
 ```
