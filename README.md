@@ -43,6 +43,12 @@ pip install -r requirements.txt
 python enricher.py -t <topic_subscription>
 ```
 
+Note: This runs the enricher with default broker credentials. To pass custom host, username, pwd run the enrticher as follows
+
+```
+SOLACE_HOST=<host_name> SOLACE_VPN=<vpn_name> SOLACE_USERNAME=<username> SOLACE_PASSWORD=<password> python enricher.py -t 'hello/world'
+```
+
 ### 2. Solace AI Connector
 
 - Populate the envVars.env with the right env varibales
