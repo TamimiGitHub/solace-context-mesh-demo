@@ -51,7 +51,8 @@ SOLACE_HOST=<host_name> SOLACE_VPN=<vpn_name> SOLACE_USERNAME=<username> SOLACE_
 
 ### 2. Solace AI Connector
 
-- Populate the envVars.env with the right env varibales
+- Populate the `envVars.env` with the right env varibales. Note: either create a new `envVars.env` or rename the `envVars.env.template`
+
 - Source the environment
 
 ```
