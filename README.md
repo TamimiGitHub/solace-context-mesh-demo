@@ -54,6 +54,15 @@ npm install
 npm start
 ```
 
+### Cleanup
+
+When done, you can simply delete the vector database and any log files
+
+```
+rm -fr chroma_data
+rm *.log
+```
+
 ## Architecure
 
 ![Architecture Diagram](src/images/realtimeRAG.png)
