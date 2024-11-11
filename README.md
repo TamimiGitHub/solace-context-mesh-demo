@@ -12,13 +12,14 @@ This demo uses the [Solace AI Connector](https://github.com/SolaceLabs/solace-ai
 
 Open every section in a separate terminal window
 
-### 1. The Enricher
+### 1. Solace AI Connector
 
-- Run the enricher
-- Navigate to the `enricher` directory
+- Populate the `envVars.env` with the right env varibales. Note: either create a new `envVars.env` or rename the `envVars.env.template`
+
+- Source the environment
 
 ```
-cd enricher
+source envVars.env
 ```
 
 - [Optional] create a virtual environment
@@ -28,36 +29,7 @@ python3 -m venv env
 source env/bin/activate
 ```
 
-Note: If you are using WSL or Ubunto you might need to install `python3.8-vnenv`
-
-- Install dependencies
-
-```
-pip install --upgrade pip
-pip install -r requirements.txt
-```
-
-- Run the enricher with a topic subscription
-
-```
-python enricher.py -t <topic_subscription>
-```
-
-Note: This runs the enricher with default broker credentials. To pass custom host, username, pwd run the enrticher as follows
-
-```
-SOLACE_HOST=<host_name> SOLACE_VPN=<vpn_name> SOLACE_USERNAME=<username> SOLACE_PASSWORD=<password> python enricher.py -t 'hello/world'
-```
-
-### 2. Solace AI Connector
-
-- Populate the `envVars.env` with the right env varibales. Note: either create a new `envVars.env` or rename the `envVars.env.template`
-
-- Source the environment
-
-```
-source envVars.env
-```
+Note: You might need to `python3.8-vnenv` on WSL instead
 
 - Install the Solace AI Connector
 
@@ -69,19 +41,13 @@ pip install -r requirements.txt
 pip install solace-ai-connector
 ```
 
-- Download the RAG configuration
-
-```
-curl https://raw.githubusercontent.com/SolaceLabs/solace-ai-connector/main/examples/llm/openai_chroma_rag.yaml > openai_chroma_rag.yaml
-```
-
 - Run the Solace AI connector with the rag configuration
 
 ```
-solace-ai-connector openai_chroma_rag.yaml
+TOPIC_SUB='insert/topic/here/>' solace-ai-connector openai_chroma_rag.yaml
 ```
 
-### 3. The frontend application
+### 2. The frontend application
 
 ```
 npm install

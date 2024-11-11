@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 
 function SEO({
-  description = 'Solace Event Feeds',
+  description = 'Solace Context Mesh',
   lang = 'en',
   meta = [],
   title,

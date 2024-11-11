@@ -241,6 +241,7 @@ const BrokerConfig = () => {
               <a
                 href="https://docs.solace.com/Get-Started/Getting-Started-Try-Broker.htm"
                 target="_blank"
+                rel="noreferrer"
               >
                 Try PubSub+ Event Brokers
               </a>{' '}

@@ -4,3 +4,5 @@ node_modules
 public
 envVars.env
 venv
+chroma_data
+*.log

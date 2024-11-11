@@ -20,7 +20,7 @@ const IndexPage = () => {
 
   return (
     <Layout>
-      <SEO title="Solace Event Feeds" />
+      <SEO title="Solace Context Mesh" />
       <section id="broker-config">
         <Row justify="center" align="middle">
           <SolaceSession>

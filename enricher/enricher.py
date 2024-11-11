@@ -19,7 +19,6 @@ from solace.messaging.errors.pubsubplus_client_error import PubSubPlusClientErro
 
 if platform.uname().system == 'Windows': os.environ["PYTHONUNBUFFERED"] = "1" # Disable stdout buffer 
 
-TOPIC_PREFIX = "myair/airOps/v1"
 RagTopic = "demo/rag/data"
 parser = argparse.ArgumentParser(description="RAG Context Enricher. Subscribes to a topic, processes the message and publishes to AI connector Data topic")
 parser.add_argument('-t', type=str, help='Source data subscription topic', required=True, metavar='topic_subscription')
@@ -66,6 +65,7 @@ class ProcessorImpl(MessageHandler):
             payload = payload.decode()
 
         # Create the Rag Data
+        # IMPROVEMENT: change json to yaml/markdown
         ragData = {
           "texts": [payload]
         }

@@ -1,0 +1,71 @@
+# four component
+# 1. Input
+# 2. Ensemble Model - give max time, max num msgs --> bundle and send all msgs at once
+## e.g. 100s or 10 msgs, whichevet comes first move to the next step
+## This avoids overloading db
+# 3. Custom - e.g. python code
+# 4. Output
+#####################################################
+
+---
+log:
+  stdout_log_level: INFO
+  log_file_level: INFO
+  log_file: solace_ai_connector.log
+
+shared_config:
+  - broker_config: &broker_connection
+      broker_type: solace
+      broker_url: ${SOLACE_BROKER_URL}
+      broker_username: ${SOLACE_BROKER_USERNAME}
+      broker_password: ${SOLACE_BROKER_PASSWORD}
+      broker_vpn: ${SOLACE_BROKER_VPN}
+
+flows:
+  - name: Aggregate flow
+    components:
+      # Input from a Solace broker
+      - component_name: solace_input
+        component_module: broker_input
+        component_config:
+          <<: *broker_connection
+          broker_subscriptions:
+            # We can use env vars instead
+            - topic: ${TOPIC_SUB}
+          payload_encoding: utf-8
+          payload_format: json
+
+      # Aggregate messages
+      - component_name: aggregate_messages
+        component_module: aggregate
+        component_config:
+          max_items: 10
+          max_time_ms: 3000
+        input_selection:
+          source_expression: input.payload
+
+      # Custom Enricher component
+      - component_name: enricher
+        component_base_path: .
+        component_module: enricher.enricher2
+        component_config: {}
+        input_selection:
+          source_expression: previous
+
+      # Send assembled messages back to broker
+      - component_name: send_response
+        component_module: broker_output
+        component_config:
+          <<: *broker_connection
+          payload_encoding: utf-8
+          payload_format: json
+          copy_user_properties: true
+        input_transforms:
+          - type: copy
+            source_expression: previous
+            dest_expression: user_data.output:payload
+          - type: copy
+            source_value: demo/rag/data
+            dest_expression: user_data.output:topic
+        input_selection:
+          source_expression: user_data.output

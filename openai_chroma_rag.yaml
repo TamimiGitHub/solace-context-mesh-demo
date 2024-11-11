@@ -33,8 +33,11 @@
 ---
 log:
   stdout_log_level: INFO
-  log_file_level: INFO
+  file_log_level: INFO
   log_file: solace_ai_connector.log
+
+trace:
+  trace_file: solace_ai_connector_trace.log
 
 shared_config:
   - broker_config: &broker_connection
@@ -48,18 +51,37 @@ shared_config:
 flows:
   # Data ingestion to chromaDB for RAG
   - name: chroma_ingest
+    trace_level: INFO
     components:
       # Data Input from a Solace broker for ingestion
-      - component_name: solace_data_input
+      - component_name: solace_input
         component_module: broker_input
         component_config:
           <<: *broker_connection
-          broker_queue_name: demo_rag_data
           broker_subscriptions:
-            - topic: demo/rag/data
-              qos: 1
+            # We can use env vars instead
+            - topic: ${TOPIC_SUB}
           payload_encoding: utf-8
           payload_format: json
+
+      # Aggregate messages
+      - component_name: aggregate_messages
+        component_module: aggregate
+        component_config:
+          max_items: 10
+          max_time_ms: 3000
+        input_selection:
+          source_expression: input.payload
+
+      #### OR use a map or json to yaml converter component ####
+
+      # Custom Enricher component
+      - component_name: enricher
+        component_base_path: .
+        component_module: enricher.enricher_component
+        component_config: {}
+        input_selection:
+          source_expression: previous
 
       # Embedding data & ChromaDB ingest
       - component_name: chroma_embed
@@ -81,13 +103,14 @@ flows:
             source_value: topic:demo/rag/data
             dest_expression: user_data.vector_input:metadatas.source
           - type: copy
-            source_expression: input.payload:texts
+            source_expression: previous
             dest_expression: user_data.vector_input:texts
         input_selection:
           source_expression: user_data.vector_input
 
   # RAG Inference flow
   - name: OpenAI_RAG
+    trace_level: INFO
     components:
       # Inference Input from a Solace broker for completion
       - component_name: solace_completion_broker
@@ -116,13 +139,13 @@ flows:
             api_key: ${OPENAI_API_KEY}
             base_url: ${OPENAI_API_ENDPOINT}
             model: ${OPENAI_EMBEDDING_MODEL_NAME}
-          max_results: 5
+          max_results: 10
         input_transforms:
           - type: copy
             source_expression: input.payload:query
             dest_expression: user_data.vector_input:text
         input_selection:
-          source_expression:  user_data.vector_input
+          source_expression: user_data.vector_input
 
       # Generate response using the retrieved data
       - component_name: llm_request
@@ -147,7 +170,7 @@ flows:
               <context>
               {{text://user_data.retrieved_data}}
               </context>
-              
+
               <user-question>
               {{text://input.payload:query}}
               </user-question>
@@ -173,9 +196,6 @@ flows:
           - type: copy
             source_expression: input.payload:query
             dest_expression: user_data.output:payload.query
-          - type: copy
-            source_expression: user_data.retrieved_data
-            dest_expression: user_data.output:payload.retrieved_data
           - type: copy
             source_expression: template:{{text://input.topic}}/response
             dest_expression: user_data.output:topic

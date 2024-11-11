@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useRef } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Input, Button } from 'antd';
 import solace, { SolclientFactory } from 'solclientjs';
 import { SessionContext } from '../util/solaceSession';

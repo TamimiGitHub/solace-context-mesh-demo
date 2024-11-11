@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useRef } from 'react';
+import React, { useEffect, useContext, useRef } from 'react';
 import { SessionContext } from '../util/solaceSession';
 import { Avatar, List } from 'antd';
 import InfiniteScroll from 'react-infinite-scroll-component';

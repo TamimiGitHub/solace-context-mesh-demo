@@ -1,7 +1,5 @@
 import React, { createContext, useState } from 'react';
 
-import { sampleChat } from './sampleData';
-
 // Create the context object to hold the Solace Session
 export const SessionContext = createContext();
 
