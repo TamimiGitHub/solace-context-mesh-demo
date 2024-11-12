@@ -1,7 +1,7 @@
 # Realtime RAG Solace Demo
 
 ![GitHub Repo stars](https://img.shields.io/github/stars/TamimiGitHub/solace-context-mesh-demo)
-![GitHub issues](https://img.shields.io/github/issues/TamimiGitHub/solace-context-mesh-demo)
+[![Open an Issue](https://img.shields.io/badge/Open-Issue-blue)](https://github.com/TamimiGitHub/solace-context-mesh-demo/issues/new)
 [![Open Pull Requests](https://img.shields.io/github/issues-pr/TamimiGitHub/solace-context-mesh-demo)](https://github.com/TamimiGitHub/solace-context-mesh-demo/pulls)
 
 
