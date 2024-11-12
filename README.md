@@ -1,5 +1,16 @@
 # Realtime RAG Solace Demo
 
+![GitHub Repo stars](https://img.shields.io/github/stars/TamimiGitHub/solace-context-mesh-demo)
+![License](https://img.shields.io/github/license/TamimiGitHub/solace-context-mesh-demo)
+![GitHub stars](https://img.shields.io/github/stars/TamimiGitHub/solace-context-mesh-demo?style=social)
+![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
+![GitHub issues](https://img.shields.io/github/issues/TamimiGitHub/solace-context-mesh-demo)
+![GitHub last commit](https://img.shields.io/github/last-commit/TamimiGitHub/solace-context-mesh-demo)
+[![Open Pull Requests](https://img.shields.io/github/issues-pr/TamimiGitHub/solace-context-mesh-demo)](https://github.com/TamimiGitHub/solace-context-mesh-demo/pulls)
+
+
+
+
 This demo uses the [Solace AI Connector](https://github.com/SolaceLabs/solace-ai-connector) to build a [Context Mesh](https://solace.com/blog/context-mesh-eda-key-ai-success/)
 
 ## Tech Stack
