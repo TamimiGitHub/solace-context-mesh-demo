@@ -1,5 +1,14 @@
 # Realtime RAG Solace Demo
 
+![GitHub Repo stars](https://img.shields.io/github/stars/TamimiGitHub/solace-context-mesh-demo)
+[![Open an Issue](https://img.shields.io/badge/Open-Issue-blue)](https://github.com/TamimiGitHub/solace-context-mesh-demo/issues/new)
+[![Open Pull Requests](https://img.shields.io/github/issues-pr/TamimiGitHub/solace-context-mesh-demo)](https://github.com/TamimiGitHub/solace-context-mesh-demo/pulls)
+
+
+![GitHub last commit](https://img.shields.io/github/last-commit/TamimiGitHub/solace-context-mesh-demo)
+![License](https://img.shields.io/github/license/TamimiGitHub/solace-context-mesh-demo)
+
+
 This demo uses the [Solace AI Connector](https://github.com/SolaceLabs/solace-ai-connector) to build a [Context Mesh](https://solace.com/blog/context-mesh-eda-key-ai-success/)
 
 ## Tech Stack
@@ -8,6 +17,12 @@ This demo uses the [Solace AI Connector](https://github.com/SolaceLabs/solace-ai
 - Solace AI Connector
 - Node 18+
 
+## Prerequisites
+- Clone the repo
+  ```
+  git clone git@github.com:TamimiGitHub/solace-context-mesh-demo.git
+  ```
+  
 ## To run
 
 Open every section in a separate terminal window
@@ -22,14 +37,16 @@ Open every section in a separate terminal window
 source envVars.env
 ```
 
-- [Optional] create a virtual environment
+- [Optional] create a [virtual environment](https://docs.python.org/3/library/venv.html)
 
 ```
+## Install virtualenv on your maching
+python3 -m pip install --user virtualenv
 python3 -m venv env
 source env/bin/activate
 ```
 
-Note: You might need to `python3.8-vnenv` on WSL instead
+Note: You might need to use `python3.8-vnenv` on WSL instead: `apt-get install python3-venv`
 
 - Install the Solace AI Connector
 
