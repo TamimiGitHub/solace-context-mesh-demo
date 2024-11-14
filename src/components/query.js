@@ -42,11 +42,11 @@ const Query = () => {
             ...prevAllChat,
             {
               response:
-                'Operation Timeout. Please make sure the Solace AI Conenctor is running',
+                'Operation Timeout. Please make sure the Solace AI Connector is running',
             },
           ]);
           setPendingResponse(false);
-        }, 10000)
+        }, 15000)
       );
     } catch (error) {
       console.error('Failed to send message:', error);
