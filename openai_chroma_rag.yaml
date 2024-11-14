@@ -36,8 +36,8 @@ log:
   file_log_level: INFO
   log_file: solace_ai_connector.log
 
-trace:
-  trace_file: solace_ai_connector_trace.log
+# trace:
+#   trace_file: solace_ai_connector_trace.log
 
 shared_config:
   - broker_config: &broker_connection
@@ -50,7 +50,7 @@ shared_config:
 # Data ingestion and augmented inference flows
 flows:
   # Data ingestion to chromaDB for RAG
-  - name: chroma_ingest
+  - name: Data_Ingestion
     trace_level: INFO
     components:
       # Data Input from a Solace broker for ingestion

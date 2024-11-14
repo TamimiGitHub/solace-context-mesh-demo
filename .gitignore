@@ -6,3 +6,7 @@ envVars.env
 venv
 chroma_data
 *.log
+
+# Python specific
+__pycache__/
+*.py[cod]

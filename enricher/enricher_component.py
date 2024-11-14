@@ -23,7 +23,7 @@ class Enricher(ComponentBase):
         # Message is the Solace Message with prop
         # Data is the payload
         
-        print(data)
+        # print(data)
         # loop through the data 
         items=[]
         for item in data:

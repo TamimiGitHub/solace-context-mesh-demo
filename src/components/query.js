@@ -46,7 +46,7 @@ const Query = () => {
             },
           ]);
           setPendingResponse(false);
-        }, 8000)
+        }, 10000)
       );
     } catch (error) {
       console.error('Failed to send message:', error);
