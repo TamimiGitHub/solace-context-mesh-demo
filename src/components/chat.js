@@ -40,9 +40,23 @@ const Chat = () => {
                 title={chat.query ? 'Query' : 'Response'}
                 description={
                   chat.query ? (
-                    <div>{chat.query}</div>
+                    <div>
+                      {chat.query.split('\n').map((line, index) => (
+                        <React.Fragment key={index}>
+                          {line}
+                          <br />
+                        </React.Fragment>
+                      ))}
+                    </div>
                   ) : (
-                    <div>{chat.response}</div>
+                    <div>
+                      {chat.response.split('\n').map((line, index) => (
+                        <React.Fragment key={index}>
+                          {line}
+                          <br />
+                        </React.Fragment>
+                      ))}
+                    </div>
                   )
                 }
               />

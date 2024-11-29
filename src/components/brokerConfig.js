@@ -102,9 +102,9 @@ const BrokerConfig = () => {
 
     newSession.on(solace.SessionEventCode.MESSAGE, (message) => {
       const decoder = new TextDecoder('utf-8');
-      const responnse = decoder.decode(message.getBinaryAttachment());
+      const response = decoder.decode(message.getBinaryAttachment());
       try {
-        let json_response = JSON.parse(responnse);
+        let json_response = JSON.parse(response);
         console.log(
           `Received response from AI Connector on ${RESPONSE_TOPIC}:`
         );
