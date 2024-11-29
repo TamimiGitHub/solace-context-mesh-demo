@@ -5,6 +5,7 @@ import { SessionContext } from '../util/solaceSession';
 
 const { Search } = Input;
 const QUERY_TOPIC = 'demo/rag/query';
+const MAX_TIMEOUT = 60000;
 
 const Query = () => {
   const [pendingResponse, setPendingResponse] = useState(false);
@@ -46,7 +47,7 @@ const Query = () => {
             },
           ]);
           setPendingResponse(false);
-        }, 15000)
+        }, MAX_TIMEOUT)
       );
     } catch (error) {
       console.error('Failed to send message:', error);

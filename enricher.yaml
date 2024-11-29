@@ -1,6 +1,6 @@
 # four component
 # 1. Input
-# 2. Ensemble Model - give max time, max num msgs --> bundle and send all msgs at once
+# 2. Components e.g. Aggregate Model - give max time, max num msgs --> bundle and send all msgs at once
 ## e.g. 100s or 10 msgs, whichevet comes first move to the next step
 ## This avoids overloading db
 # 3. Custom - e.g. python code

@@ -65,13 +65,13 @@ flows:
           payload_format: json
 
       # Aggregate messages
-      - component_name: aggregate_messages
+      - component_name: aggregate_stream_messages
         component_module: aggregate
         component_config:
           max_items: 10
           max_time_ms: 3000
         input_selection:
-          source_expression: input.payload
+          source_expression: input
 
       #### OR use a map or json to yaml converter component ####
 
@@ -84,7 +84,7 @@ flows:
           source_expression: previous
 
       # Embedding data & ChromaDB ingest
-      - component_name: chroma_embed
+      - component_name: store_embeddings_chroma
         component_module: langchain_vector_store_embedding_index
         component_config:
           vector_store_component_path: langchain_chroma
@@ -99,9 +99,9 @@ flows:
             base_url: ${OPENAI_API_ENDPOINT}
             model: ${OPENAI_EMBEDDING_MODEL_NAME}
         input_transforms:
-          - type: copy
-            source_value: topic:demo/rag/data
-            dest_expression: user_data.vector_input:metadatas.source
+          # - type: copy
+          #   source_value: topic:demo/rag/data
+          #   dest_expression: user_data.vector_input:metadatas.source
           - type: copy
             source_expression: previous
             dest_expression: user_data.vector_input:texts
@@ -139,7 +139,7 @@ flows:
             api_key: ${OPENAI_API_KEY}
             base_url: ${OPENAI_API_ENDPOINT}
             model: ${OPENAI_EMBEDDING_MODEL_NAME}
-          max_results: 10
+          max_results: 50
         input_transforms:
           - type: copy
             source_expression: input.payload:query
@@ -165,7 +165,7 @@ flows:
 
           - type: copy
             source_expression: |
-              template:You are a helpful AI assistant. Using the provided context, help with the user's request below. Refrain to use any knowledge outside from the provided context. If the user query can not be answered using the provided context, reject user's query.
+              template:You are a helpful AI assistant. Using the provided context, help with the user's request below. Refrain to use any knowledge outside from the provided context. If the user query can not be answered using the provided context, reject user's query by saying "Thanks for the question, I dont have enough context to answer your query".
 
               <context>
               {{text://user_data.retrieved_data}}

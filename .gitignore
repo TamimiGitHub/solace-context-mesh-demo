@@ -8,5 +8,5 @@ chroma_data
 *.log
 
 # Python specific
-__pycache__/
+**/__pycache__/
 *.py[cod]

@@ -1,0 +1,3 @@
+[submodule "ai-data-analyst-agent"]
+	path = ai-data-analyst-agent
+	url = git@github.com:SolaceDev/ai-data-analyst-agent.git
