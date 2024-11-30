@@ -1,7 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
 import '../css/collapsable.css';
 import { Row, Col, Form, Input, Button, Tooltip, Collapse } from 'antd';
-import { CaretRightOutlined, LinkOutlined } from '@ant-design/icons';
+import {
+  CaretRightOutlined,
+  LinkOutlined,
+  DownloadOutlined,
+  UploadOutlined,
+} from '@ant-design/icons';
 import solace, { SolclientFactory } from 'solclientjs';
 import { SessionContext } from '../util/solaceSession';
 
@@ -28,6 +33,27 @@ const BrokerConfig = () => {
     msgformat: 'text',
     compression: false,
   });
+
+  const handleDownload = () => {
+    const config = {
+      url: record.url,
+      vpn: record.vpn,
+      username: record.username,
+      password: record.password,
+    };
+
+    const blob = new Blob([JSON.stringify(config, null, 2)], {
+      type: 'application/json',
+    });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'feeds-config.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
 
   useEffect(() => {}, [session, record]);
 
@@ -221,6 +247,62 @@ const BrokerConfig = () => {
               >
                 Disconnect
               </Button>
+            </Form.Item>
+          </Col>
+          <Form.Item>
+            <Col span={4}>
+              <Tooltip title="Download config">
+                <Button
+                  type="primary"
+                  shape="round"
+                  icon={<DownloadOutlined />}
+                  onClick={handleDownload}
+                  style={{ padding: '10px' }}
+                  disabled={false}
+                ></Button>
+              </Tooltip>
+            </Col>
+          </Form.Item>
+          <Col span={4}>
+            <Form.Item>
+              <Tooltip title="Upload config">
+                <Button
+                  type="primary"
+                  shape="round"
+                  icon={<UploadOutlined />}
+                  style={{ padding: '10px' }}
+                  onClick={() => document.getElementById('fileInput').click()}
+                ></Button>
+              </Tooltip>
+              <input
+                type="file"
+                id="fileInput"
+                style={{ display: 'none' }}
+                onChange={(e) => {
+                  const file = e.target.files[0];
+                  const reader = new FileReader();
+                  reader.onload = (event) => {
+                    try {
+                      const config = JSON.parse(event.target.result);
+                      if (
+                        typeof config !== 'object' ||
+                        !config.url ||
+                        !config.vpn ||
+                        !config.username ||
+                        !config.password
+                      ) {
+                        throw new Error('Invalid configuration file format.');
+                      }
+                      setRecord(config);
+                      form.setFieldsValue(config);
+                    } catch (error) {
+                      let errorString = 'Error parsing config file: ' + error;
+                      setErrorString(errorString);
+                    }
+                  };
+                  reader.readAsText(file);
+                }}
+              />
             </Form.Item>
           </Col>
           {errorConnection && (

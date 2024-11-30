@@ -3,6 +3,7 @@ node_modules
 .cache
 public
 envVars.env
+ReinventEnvVars.env
 venv
 chroma_data
 *.log
